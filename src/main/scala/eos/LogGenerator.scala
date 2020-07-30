@@ -25,8 +25,6 @@ object LogGenerator {
       properties.setProperty("linger.ms", "200")
       properties.setProperty("compression.type", "lz4")
       properties.setProperty("acks", "all")
-//      properties.setProperty("transaction.timeout.ms", "localhost:9092")
-//      properties.setProperty(ENABLE_IDEMPOTENCE_CONFIG, "true"
 
       val sourceRPS = 1
       val sourceParallelism = 1
@@ -45,6 +43,8 @@ object LogGenerator {
         .addSource(source)
         .setParallelism(sourceParallelism)
         .addSink(sink)
-      env.execute("Waf Log Generator")
+        .uid("Generator")
+        .name("Generator")
+      env.execute("Log Generator")
     }
 }
